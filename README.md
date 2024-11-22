@@ -97,7 +97,7 @@ docker-compose up -d
 ## Build image
 
 ```sh
-docker compose build
+docker compose build kamailio
 ```
 
 ## Run Kamailio
