@@ -63,4 +63,4 @@ networks:
     external: true
   all_in_one:
     external: true
-    name: hom7-prom-all_default  # Ensure this matches the actual name of the existing network
+    name: all-in-one_default  # Ensure this matches the actual name of the existing network

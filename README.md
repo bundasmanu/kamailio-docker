@@ -84,14 +84,21 @@ docker compose up -d
 
 ## Homer
 
-At this phase, i advise to use `Homer 7`. By default, the created network will assume the name pointed in `docker-compose` file (`hom7-prom-all_default`), but if the name is not the same please adjust;
+At this phase, i advise to use `Homer 10`. By default, the created network will assume the name pointed in `docker-compose` file (`all-in-one_default`), but if the name is not the same please adjust;
 
-To deploy `Homer 7`:
+To deploy `Homer 10`:
 
 ```bash
-git clone https://github.com/sipcapture/homer7-docker
-cd homer7-docker/heplify-server/hom7-prom-all
+git clone https://github.com/sipcapture/homer-docker.git
+cd all-in-one
+docker-compose pull
 docker-compose up -d
+```
+
+Check ip address, where `heplify-server` is running, and update, the IP on the `env` var: `HEPLIFY_IP`.
+
+```sh
+docker inspect heplify-server | grep IPAddress
 ```
 
 ## Build image
@@ -149,5 +156,5 @@ docker exec -it <container_id> psql -h 172.25.0.2 -U postgres -d kamailio
 ## Workaround on OSX to allow receiveing UDP requests without restrictions in length
 
 ```sh
-sysctl -w net.inet.udp.maxdgram=9216
+sudo sysctl -w net.inet.udp.maxdgram=9216
 ```
