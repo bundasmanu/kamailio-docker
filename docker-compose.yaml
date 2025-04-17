@@ -28,20 +28,16 @@ services:
     container_name: kamailio
     hostname: kamailio
     environment:
-      - SHM_MEMORY=${SHM_MEMORY:-128}
-      - PKG_MEMORY=${PKG_MEMORY:-16}
-      - CONFIGS_FOLDER=${CONFIGS_FOLDER:-/etc/kamailio}
+      - CONFIGS_FOLDER=${CONFIGS_FOLDER}
       - CFGFILE=${CFGFILE:-main.cfg}
+      - LOG_FILE_DIR=${LOG_FILE_DIR}
+      - PKG_MEMORY=${PKG_MEMORY}
+      - SHM_MEMORY=${SHM_MEMORY}
       - STARTER_KAM_USER=${STARTER_KAM_USER:-kamailio}
       - STARTER_KAM_GROUP=${STARTER_KAM_GROUP:-kamailio}
       - TMP_FILE_LOCATION=${TMP_FILE_LOCATION:-/var/run/kamailio}
-      - LOG_FILE_DIR=${LOG_FILE_DIR:-/var/log/kamailio}
-      - LOG_FILE_NAME=${LOG_FILE_NAME:-kamailio.log}
-      - DB_CONNECTION=${DB_CONNECTION}
-      - MAX_EXPIRES=${MAX_EXPIRES}
-      - LISTEN_IP=${LISTEN_IP}
-      - HEPLIFY_IP=${HEPLIFY_IP}
-      - HEP_CAPTURE_ID=${HEP_CAPTURE_ID}
+    env_file:
+      - ./env/kam.env
     volumes:
       - ./configs:${CONFIGS_FOLDER}
       - ./logs:${LOG_FILE_DIR}
