@@ -78,7 +78,7 @@ In short:
 ```sh
 git clone https://github.com/bundasmanu/postgres-kamailio-docker
 docker network create --opt com.docker.network.driver.mtu=9000 --subnet=172.25.0.0/24 common-network ## if not created
-docker compose build
+docker compose build kamailio
 docker compose up -d
 ```
 
@@ -145,6 +145,8 @@ docker exec -it <container_id> sngrep
 
 ```sh
 docker exec -it <container_id> kamcmd <command>
+docker exec -it kamailio kamcmd dispatcher.set_state ap 1 sip:172.25.0.10:5060
+docker exec -it kamailio kamcmd dispatcher.set_state ap 2 sip:172.25.0.20:5060
 ```
 
 ## psql interface - inside container
