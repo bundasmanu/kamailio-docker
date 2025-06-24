@@ -36,11 +36,13 @@ services:
       - STARTER_KAM_USER=${STARTER_KAM_USER:-kamailio}
       - STARTER_KAM_GROUP=${STARTER_KAM_GROUP:-kamailio}
       - TMP_FILE_LOCATION=${TMP_FILE_LOCATION:-/var/run/kamailio}
+      - FILE_OUT_CONTAINER_FOLDER=${FILE_OUT_CONTAINER_FOLDER}
     env_file:
       - ./env/kam.env
     volumes:
       - ./configs:${CONFIGS_FOLDER}
       - ./logs:${LOG_FILE_DIR}
+      - ./logs/ban/:${FILE_OUT_CONTAINER_FOLDER}
     ports:
       - "5060:5060"
     networks:
