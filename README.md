@@ -7,6 +7,7 @@ Custom Kamailio Container to be used as a generic backbone on multiple purposes 
   - [What offers?](#what-offers)
   - [.env file](#env-file)
   - [Networks](#networks)
+    - [CoreDNS](#coredns)
   - [PostgreSQL](#postgresql)
   - [Homer](#homer)
   - [Build image](#build-image)
@@ -65,6 +66,47 @@ But in this setup:
 
 - `common-network`: This is a external network used in common with `postgres` container. More details about how to create the network are described in: [postgres-kamailio-docker](https://github.com/bundasmanu/postgres-kamailio-docker);
 - `all_in_one`: Should point to the `docker` network used by `Homer` containers;
+
+### CoreDNS
+
+If there is a need to test some logic that implies manage the cluster availability with DNS, we could setup CoreDNS, pointing to our Kamailios.
+
+Example with a local DNS pointing to two kamailios.
+
+```sh
+. {
+    hosts {
+        172.25.0.3 kamailio.cluster
+        172.25.0.4 kamailio.cluster
+        fallthrough
+    }
+    loadbalance
+    forward . 127.0.0.11
+}
+```
+
+Steps:
+
+1. CoreDNS container creation:
+
+    ```sh
+      docker run -d --name coredns \
+        --network common-network \
+        --ip 172.25.0.99 \
+        -v $(pwd)/core_dns_file:/Corefile \
+        coredns/coredns -conf /Corefile
+    ```
+
+2. Setup container to use it, on compose file:
+
+  ```yaml
+    cap_add:
+      - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE
+    dns:
+      - 172.25.0.99
+  ```
 
 ## PostgreSQL
 
