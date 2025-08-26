@@ -1,0 +1,9 @@
+. {
+    hosts {
+        172.25.0.3 kamailio.cluster
+        172.25.0.4 kamailio.cluster
+        fallthrough
+    }
+    loadbalance
+    forward . 127.0.0.11
+}
