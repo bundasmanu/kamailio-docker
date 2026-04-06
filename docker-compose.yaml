@@ -41,6 +41,7 @@ services:
       - ./env/kam.env
     volumes:
       - ./configs:${CONFIGS_FOLDER}
+      - /tmp/certs/:/etc/kamailio/certs
       - ./logs:${LOG_FILE_DIR}
       - ./logs/ban/:${FILE_OUT_CONTAINER_FOLDER}
     ports:
